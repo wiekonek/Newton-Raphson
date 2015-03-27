@@ -13,8 +13,7 @@ DEFINES += NEWRAP_LIBRARY
 
 SOURCES += newrap.cpp
 
-HEADERS += newrap.h\
-        newrap_global.h
+HEADERS += newrap.h
 
 unix {
     target.path = /usr/lib
