@@ -39,7 +39,3 @@ double newton_raphson_st(double x, Funct *f, Funct *df, Funct *d2f, int mit, dou
         return x;
     return 0;
 }
-
-void test() {
-    std::cout<<"Test02\n";
-}

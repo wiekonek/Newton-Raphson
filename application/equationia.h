@@ -1,10 +1,17 @@
 #ifndef EQUATIONIA_H
 #define EQUATIONIA_H
 
-class EquationIA
+#include "equation.h"
+
+using intervalarth::interval;
+
+class EquationIA : public Equation
 {
+private:
+    interval x, fatx;
 public:
-    EquationIA();
+    EquationIA(interval, funct, funct, funct, int, long double, interval, int, int);
+    interval solve_ia() {}
 };
 
 #endif // EQUATIONIA_H

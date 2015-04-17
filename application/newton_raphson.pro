@@ -13,14 +13,16 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    solver.cpp \
     IntervalArithmetic.cpp \
-    funct.cpp
+    equation.cpp \
+    equationia.cpp \
+    equationpa.cpp
 
 HEADERS  += mainwindow.h \
-    solver.h \
     IntervalArithmetic.h \
-    funct.h
+    equation.h \
+    equationia.h \
+    equationpa.h
 
 FORMS    += mainwindow.ui
 

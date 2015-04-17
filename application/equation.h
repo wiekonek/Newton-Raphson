@@ -1,19 +1,20 @@
 #ifndef EQUATION_H
 #define EQUATION_H
-
-#include "funct.h"
 #include "IntervalArithmetic.h"
-#include "../lib/newrap.h"
+#include <math.h>
+
+using intervalarth::interval;
 
 class Equation {
 protected:
-    const int mit;
-    double esp;
+    typedef long double (*funct)(long double);
+    int mit;
+    long double eps;
     int it, st;
+    funct f, df, d2f;
 public:
-    Equation();
-    Equation(int&, double, int&, int&);
-    virtual double solve() = 0;
+    Equation(int, funct, funct, funct, long double, int, int);
+    virtual interval solve_ia() = 0;
 };
 
 #endif // EQUATION_H
