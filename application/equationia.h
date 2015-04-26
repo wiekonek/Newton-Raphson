@@ -39,7 +39,7 @@ public:
 };
 
 #endif // EQUATIONIA_H
-/*asdasdasdad
+/*lol
 function NewtonRaphson (var x     : Extended;
                         f,df,d2f  : fx;
                         mit       : Integer;
