@@ -26,7 +26,7 @@ public:
     EquationIA(double, funct, funct, funct, int, long double, double, int, int);
     EquationIA(long double, funct, funct, funct, int, long double, long double, int, int);
     EquationIA(QString, funct, funct, funct, int, long double, QString, int, int);
-    EquationIA(QString, QString, int, long double, QString, int, int);
+    EquationIA(QString, QString, int, long double, QString);
     ~EquationIA();
 
     interval solve_ia();
@@ -39,7 +39,7 @@ public:
 };
 
 #endif // EQUATIONIA_H
-/*
+/*asdasdasdad
 function NewtonRaphson (var x     : Extended;
                         f,df,d2f  : fx;
                         mit       : Integer;
