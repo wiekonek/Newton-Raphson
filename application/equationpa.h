@@ -1,17 +1,16 @@
 #ifndef EQUATIONPA_H
 #define EQUATIONPA_H
 
-#include "equation.h"
+#include "equationia.h"
 
 using intervalarth::interval;
 
-class EquationPA : public Equation
-{
+class EquationPA : public EquationIA {
 private:
     long double x, fatx;
 public:
+    EquationPA(QString, funct, funct, funct, int, long double, QString, int, int);
     EquationPA(long double, funct, funct, funct, int, long double, long double, int, int);
-    interval solve_ia() {}
     long double solve_pa();
 };
 

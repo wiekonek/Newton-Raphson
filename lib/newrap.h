@@ -1,9 +1,19 @@
 #ifndef NEWRAP_H
 #define NEWRAP_H
 
-//#include "../application/funct.h"
+#include "../application/IntervalArithmetic.h"
+using intervalarth::interval;
 
-double newton_raphson_st(double, int, double, double, int, int);
-void test();
+
+extern "C" {
+
+long double f(long double);
+long double df(long double);
+long double d2f(long double);
+interval iif(interval);
+interval idf(interval);
+interval id2f(interval);
+
+}
 
 #endif // NEWRAP_H

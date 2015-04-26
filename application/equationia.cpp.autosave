@@ -22,18 +22,52 @@ EquationIA::EquationIA(QString _x, funct f, funct df, funct d2f, int mit, long d
     ifatx = IA->IntRead(_fatx.toStdString());
 }
 
-EquationIA::EquationIA(QString _x, QString library, int mit, long double eps) {
-
-}
-
 EquationIA::~EquationIA() {
     delete IA;
 }
 
 intervalarth::interval EquationIA::solve_ia() {
+    long double dfatx, d2fatx, p, v, w, xh, x1, x2;
+    if(mit < 1)
+        st = 1;
+    else {
+        st = 3;
+        it = 0;
+        do {
+            it++;
+            fatx = f(x);
+            dfatx = df(x);
+            d2fatx = d2f(x);
+            p = dfatx*dfatx-2*fatx*d2fatx;
+            std::cout<<"p: "<<p<<"\n";
+            if (p < 0)
+                st = 4;
+            else {
+                xh = x;
+                w = abs(xh);
+                p = sqrt(p);
+                x1 = x-(dfatx-p)/d2fatx;
+                x2 = x-(dfatx+p)/d2fatx;
+                std::cout<<"fatx: "<<fatx<<" dfatx: "<<dfatx<<" d2fatx: "<<d2fatx<<" x: "<<x<<"\n";
+                abs(x2-xh) > abs(x1-xh) ? x = x1 : x = x2;
+                v = abs(x);
+                if (v < w)
+                    v = w;
+                if (v == 0)
+                    st = 0;
+                else if (abs(x-xh)/v <= eps)
+                    st = 0;
+            }
+        } while( it != mit || st == 3);
+    }
+    std::cout<<"x: "<<x<<" fatx: "<<fatx<<" it: "<<it<<"\n";
+    if (st == 0 || st == 3)
+        return x;
+    return 0;
+    
+    
     interval idfatx, id2fatx, ip, iv, iw, ixh, ix1, ix2;
     interval i2 = IA->IntRead("2.0");
-    interval i0 = IA->IntRead("0.0");
     if(mit < 1)
         st = 1;
     else {
@@ -62,11 +96,7 @@ intervalarth::interval EquationIA::solve_ia() {
                 iv = iw;
             if(iv.a <= 0 && iv.b >= 0)
                 st =0;
-            else if (abs(ix.b-ixh.a)/iv.a <= eps)
-                st = 0;
-        } while( it != mit || st == 3);
+            else if (abs())
+        }
     }
-    if(st==0 || st==3)
-        return ix;
-    return i0;
 }

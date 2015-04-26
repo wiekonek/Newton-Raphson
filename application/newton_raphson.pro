@@ -14,17 +14,16 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     IntervalArithmetic.cpp \
-    equation.cpp \
     equationia.cpp \
     equationpa.cpp
 
 HEADERS  += mainwindow.h \
     IntervalArithmetic.h \
-    equation.h \
     equationia.h \
     equationpa.h
 
 FORMS    += mainwindow.ui
 
 QMAKE_CXXFLAGS += -std=c++11 -Wextra -pedantic
-LIBS += -lmpfr
+LIBS += -lmpfr -ldl
+

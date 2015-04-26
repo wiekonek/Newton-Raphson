@@ -297,8 +297,7 @@ compiler_clean:
 
 ####### Compile
 
-newrap.o: ../lib/newrap.cpp ../lib/newrap.h \
-		../application/funct.h
+newrap.o: ../lib/newrap.cpp ../lib/newrap.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o newrap.o ../lib/newrap.cpp
 
 ####### Install
