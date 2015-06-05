@@ -36,10 +36,12 @@ public:
     long double get_ifatx_a() {return ifatx.a;}
     long double get_ifatx_b() {return ifatx.b;}
     int get_it() {return it;}
+    int get_st() {return st;}
 };
 
 #endif // EQUATIONIA_H
-/*lol
+
+/*
 function NewtonRaphson (var x     : Extended;
                         f,df,d2f  : fx;
                         mit       : Integer;
@@ -90,6 +92,7 @@ function NewtonRaphson (var x     : Extended;
 {        directive or compiled in the $F+ state.                            }
 {                                                                           }
 {---------------------------------------------------------------------------}
+
 var dfatx,d2fatx,p,v,w,xh,x1,x2 : Extended;
 begin
   if mit<1
@@ -132,4 +135,22 @@ begin
            fatx:=f(x)
          end
 end;
+
 */
+
+/*
+ * Dokumentacja (tylko do funkcji liczącej w arytmetyce przedziałowej)
+ * 
+ * 1. Zastosowanie (jedno zdanie)
+ * 2. Opis metody
+ * 3. Wywołanie funkcji (to znaczy nagłówek)
+ * 4. Dane ( n -liczba równań, x - coś tam)
+ * 5. Wyniki
+ * 6. Inne parametry (st - status, w funkcji nie ma obsługi błędów, obsługujemy je na zewnątrz funkcji)
+ * 7. Typy parametrów (int: ..., tablica: .....)
+ * 8. Identyfikatory nielokalne (unikać stosowania parametrów nielokalnych)
+ *  tablica - dynamiczna tablica dwuwymiarowa, type a: arrray of array of Extended...
+ * 9. Treść funkcji
+ * 10.Przykłady (coś się sypie, nie uzyskujemy wymaganej dokładności, dzielenie przez 0)
+ *
+ */

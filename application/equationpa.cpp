@@ -30,7 +30,6 @@ long double EquationPA::solve_pa() {
                 p = sqrt(p);
                 x1 = x-(dfatx-p)/d2fatx;
                 x2 = x-(dfatx+p)/d2fatx;
-                std::cout<<"fatx: "<<fatx<<" dfatx: "<<dfatx<<" d2fatx: "<<d2fatx<<" x: "<<x<<"\n";
                 abs(x2-xh) > abs(x1-xh) ? x = x1 : x = x2;
                 v = abs(x);
                 if (v < w)
@@ -42,7 +41,7 @@ long double EquationPA::solve_pa() {
             }
         } while( it != mit || st == 3);
     }
-    std::cout<<"x: "<<x<<" fatx: "<<fatx<<" it: "<<it<<"\n";
+    //std::cout<<"x: "<<x<<" fatx: "<<fatx<<" it: "<<it<<"\n";
     if (st == 0 || st == 3)
         return x;
     return 0;

@@ -21,11 +21,11 @@ EquationIA::EquationIA(QString _x, funct f, funct df, funct d2f, int mit, long d
     ix = IA->IntRead(_x.toStdString());
     ifatx = IA->IntRead(_fatx.toStdString());
 }
-
+/*
 EquationIA::EquationIA(QString _x, QString library, int mit, long double eps) {
 
 }
-
+*/
 EquationIA::~EquationIA() {
     delete IA;
 }

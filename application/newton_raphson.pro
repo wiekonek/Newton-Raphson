@@ -10,6 +10,7 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = newton_raphson
 TEMPLATE = app
+INCLUDEPATH += -L/usr/lib/x86_64-linux-gnu/
 
 SOURCES += main.cpp\
         mainwindow.cpp \
@@ -25,5 +26,5 @@ HEADERS  += mainwindow.h \
 FORMS    += mainwindow.ui
 
 QMAKE_CXXFLAGS += -std=c++11 -Wextra -pedantic
-LIBS += -lmpfr -ldl
 
+LIBS += -L/usr/lib/x86_64-linux-gnu/ -lmpfr -ldl

@@ -102,6 +102,19 @@
      <string>ilość iteracji</string>
     </property>
    </widget>
+   <widget class="QLabel" name="label_ret">
+    <property name="geometry">
+     <rect>
+      <x>80</x>
+      <y>180</y>
+      <width>241</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>---------------------------------</string>
+    </property>
+   </widget>
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
