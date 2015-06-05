@@ -3,29 +3,43 @@
 using intervalarth::interval;
 using intervalarth::IntervalArithmetic;
 
-EquationIA::EquationIA(interval ix, funct f, funct df, funct d2f, int mit, long double eps, interval ifatx, int it, int st) :
-    ix(ix), f(f), df(df), d2f(d2f), mit(mit), eps(eps), ifatx(ifatx), it(it), st(st) {
+EquationIA::EquationIA() : st(0), it(0) {
+
     IA = new IntervalArithmetic();
-}
-
-EquationIA::EquationIA(double x, funct f, funct df, funct d2f, int mit, long double eps, double fatx, int it, int st) :
-    EquationIA(QString::number(x), f, df, d2f, mit, eps, QString::number(fatx), it, st) {}
-
-EquationIA::EquationIA(long double x, funct f, funct df, funct d2f, int mit, long double eps, long double fatx, int it, int st) :
-    EquationIA(QString::number((double)x), f, df, d2f, mit, eps, QString::number((double)fatx), it, st) {
-}
-
-EquationIA::EquationIA(QString _x, funct f, funct df, funct d2f, int mit, long double eps, QString _fatx, int it, int st) :
-    f(f), df(df), d2f(d2f), mit(mit), eps(eps), it(it), st(st) {
-    IA = new IntervalArithmetic();
-    ix = IA->IntRead(_x.toStdString());
-    ifatx = IA->IntRead(_fatx.toStdString());
-}
-/*
-EquationIA::EquationIA(QString _x, QString library, int mit, long double eps) {
+    ix = IA->IntRead("0");
+    ifatx = IA->IntRead("0");
 
 }
-*/
+
+EquationIA::EquationIA(QString ix, void * handle, QString iFunctionName, int mit, double eps) :
+    mit(mit), eps(eps) {
+    EquationIA();
+    this->ix = IA->IntRead(ix.toStdString());
+
+    char * error;
+
+    std::string iname = iFunctionName.toStdString() ;
+
+    iif = (ifunct)dlsym(handle, iname.c_str());
+    if ((error = dlerror()) != NULL)  {
+        fputs(error, stderr);
+        exit(1);
+    }
+
+    idf = (ifunct)dlsym(handle, ("d" + iname).c_str());
+    if ((error = dlerror()) != NULL)  {
+        fputs(error, stderr);
+        exit(1);
+    }
+
+    id2f = (ifunct)dlsym(handle, ("d2" + iname).c_str());
+    if ((error = dlerror()) != NULL)  {
+        fputs(error, stderr);
+        exit(1);
+    }
+
+}
+
 EquationIA::~EquationIA() {
     delete IA;
 }
@@ -40,13 +54,13 @@ intervalarth::interval EquationIA::solve_ia() {
         st = 3;
         it = 0;
         do {
-            it++;
+            it++; /*
             ifatx.a = f(ix.a);
             ifatx.b = f(ix.b);
             idfatx.a = df(ix.a);
             idfatx.b = df(ix.b);
             id2fatx.a = d2f(ix.a);
-            id2fatx.b = d2f(ix.b);
+            id2fatx.b = d2f(ix.b); */
             ip = IA->DISub( IA->DIMul(idfatx, idfatx), IA->DIMul(i2, IA->DIMul(ifatx, id2fatx)) );
             if(ip.a < 0)
                 st = 4;

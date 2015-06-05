@@ -5,12 +5,18 @@
 
 #include "equationpa.h"
 
+void * handle;
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent), ui(new Ui::MainWindow) {
     ui->setupUi(this);
+    ui->frame->setEnabled(false);
 }
 
 MainWindow::~MainWindow() {
+
+    if(handle)
+        dlclose(handle);
     delete ui;
 }
 
@@ -18,41 +24,47 @@ void MainWindow::on_pushButton_2_clicked() {
     close();
 }
 
-void MainWindow::on_pushButton_clicked() {
+void MainWindow::on_pushButton_loadLib_clicked() {
 
-    typedef long double (*func) (long double);
-    void *handle;
-    char *error;
+    if(handle)
+        dlclose(handle);
 
-    handle = dlopen ("/home/konrad/Documents/c_files/newton_raphson/build-newrap-Desktop_Qt_5_4_2_GCC_64bit-Debug/libnewrap.so", RTLD_LAZY);
+    handle = dlopen (ui->lineEdit_libPath->text().toStdString().c_str(), RTLD_LAZY);
     if (!handle) {
+        ui->frame->setEnabled(false);
+        ui->label_error->setText("Nie mogę załadować biblioteki. Sprawdź ścieżkę.");
         fputs (dlerror(), stderr);
-        exit(1);
+    } else {
+        ui->label_error->setText("");
+        ui->frame->setEnabled(true);
     }
+}
 
-    func f = (func)dlsym(handle, "f");
-    if ((error = dlerror()) != NULL)  {
-        fputs(error, stderr);
-        exit(1);
-    }
+void MainWindow::on_pushButton_PA_clicked() {
 
-    func df = (func)dlsym(handle, "df");
-    if ((error = dlerror()) != NULL)  {
-        fputs(error, stderr);
-        exit(1);
-    }
+    ui->label_error->setText("");
+    ui->label_ret->setText("x = ");
 
-    func d2f = (func)dlsym(handle, "d2f");
-    if ((error = dlerror()) != NULL)  {
-        fputs(error, stderr);
-        exit(1);
-    }
-
-    EquationPA *eq = new EquationPA(ui->lineEdit_x->text(), f, df, d2f, ui->lineEdit_it->text().toInt(), 0.001, "0", 0, 0);
+    EquationPA *eq = new EquationPA(ui->lineEdit_x->text(), handle, ui->lineEdit_functionName->text(), ui->lineEdit_it->text(), ui->lineEdit_eps->text());
     eq->solve_pa();
 
-    ui->label_ret->setText( "x: " + QString::number((double)eq->get_x()) + "; fatx: " + QString::number((double)eq->get_fatx()) + "; st: " + QString::number(eq->get_st()) );
+    switch (eq->get_st()) {
+    case 0: ui->label_ret->setText("x = " + QString::number((double)eq->get_x(), 'f', 40) );
+        break;
+    case 1: ui->label_error->setText("mit < 1");
+        break;
+    case 2: ui->label_error->setText("during the calculations the second derivative of f with respect to x at a point x is equal to zero");
+        break;
+    case 3: ui->label_ret->setText("x = " + QString::number((double)eq->get_x(), 'f', 40) );
+        ui->label_error->setText("the given accuracy eps is not achieved in mit iteration steps");
+        break;
+    case 4: ui->label_error->setText("during the calculations sqr(df(x))-2*f(x)*d2f(x)<0 at a point x");
+        break;
+    }
 
     delete eq;
-    dlclose(handle);
+}
+
+void MainWindow::on_pushButton_IA_clicked() {
+
 }

@@ -11,22 +11,19 @@ using intervalarth::IntervalArithmetic;
 using std::string;
 
 class EquationIA {
-private:
-    interval ix, ifatx;
-    IntervalArithmetic *IA;
 protected:
     typedef interval (*ifunct)(interval);
-    typedef long double (*funct)(long double);
+    interval ix, ifatx;
+    IntervalArithmetic *IA;
+    ifunct iif, idf, id2f;
+
     int mit;
     long double eps;
     int it, st;
-    funct f, df, d2f;
+
 public:
-    EquationIA(interval, funct, funct, funct, int, long double, interval, int, int);
-    EquationIA(double, funct, funct, funct, int, long double, double, int, int);
-    EquationIA(long double, funct, funct, funct, int, long double, long double, int, int);
-    EquationIA(QString, funct, funct, funct, int, long double, QString, int, int);
-    EquationIA(QString, QString, int, long double, QString);
+    EquationIA();
+    EquationIA(QString ix, void * handle, QString iFunctionName, int mit, double eps);
     ~EquationIA();
 
     interval solve_ia();
