@@ -1,6 +1,9 @@
 # build folders
 [Bb]uild*/
 
+#qt files
+*.pro.*
+
 # Compiled Object files
 *.slo
 *.lo
