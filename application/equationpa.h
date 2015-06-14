@@ -18,7 +18,7 @@ private:
 public:
     EquationPA();
     EquationPA(QString x, funct f, funct df, funct d2f, QString mit, QString eps);
-    EquationPA(QString x, void * handle, QString functionName, QString mit, QString eps);
+    EquationPA(QString x, void * handle, QString functionName, QString mit, QString eps) throw (string);
     long double solve_pa();
 
     long double get_x() {return x;}

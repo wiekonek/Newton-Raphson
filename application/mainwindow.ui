@@ -13,6 +13,9 @@
   <property name="windowTitle">
    <string>Newton - Raphson</string>
   </property>
+  <property name="locale">
+   <locale language="Polish" country="Poland"/>
+  </property>
   <widget class="QWidget" name="centralWidget">
    <widget class="QLabel" name="label">
     <property name="geometry">
@@ -62,7 +65,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>/home/konrad/Documents/c_files/newton_raphson/build_lib/libnewrap.so</string>
+     <string>/home/wiekonek/Documents/c_files/newton_raphson/build_lib/libnewrap.so</string>
     </property>
    </widget>
    <widget class="QPushButton" name="pushButton_loadLib">
@@ -99,6 +102,13 @@
       <width>571</width>
       <height>51</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <weight>50</weight>
+      <bold>false</bold>
+      <underline>true</underline>
+     </font>
     </property>
     <property name="text">
      <string/>
@@ -138,7 +148,7 @@
       </rect>
      </property>
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="tab">
       <attribute name="title">
@@ -157,7 +167,7 @@
         <string>Oblicz</string>
        </property>
       </widget>
-      <widget class="QLineEdit" name="lineEdit_x_3">
+      <widget class="QLineEdit" name="lineEdit_xa">
        <property name="enabled">
         <bool>true</bool>
        </property>
@@ -169,8 +179,11 @@
          <height>26</height>
         </rect>
        </property>
+       <property name="text">
+        <string>-2,2</string>
+       </property>
       </widget>
-      <widget class="QLineEdit" name="lineEdit_x_4">
+      <widget class="QLineEdit" name="lineEdit_xb">
        <property name="enabled">
         <bool>true</bool>
        </property>
@@ -181,6 +194,9 @@
          <width>121</width>
          <height>26</height>
         </rect>
+       </property>
+       <property name="text">
+        <string/>
        </property>
       </widget>
       <widget class="QLabel" name="label_10">
@@ -226,8 +242,11 @@
          <height>26</height>
         </rect>
        </property>
+       <property name="locale">
+        <locale language="Polish" country="Poland"/>
+       </property>
        <property name="text">
-        <string>-2.2</string>
+        <string>-2,2</string>
        </property>
       </widget>
       <widget class="QPushButton" name="pushButton_PA">
@@ -258,7 +277,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>example1</string>
+      <string>f1</string>
      </property>
     </widget>
     <widget class="QLabel" name="label_6">
@@ -299,6 +318,9 @@
        <height>26</height>
       </rect>
      </property>
+     <property name="inputMask">
+      <string/>
+     </property>
      <property name="text">
       <string>10</string>
      </property>
@@ -329,7 +351,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>0.0001</string>
+      <string>0,0001</string>
      </property>
     </widget>
     <widget class="QLabel" name="label_ret">
@@ -349,14 +371,6 @@
      </property>
     </widget>
    </widget>
-   <zorder>label</zorder>
-   <zorder>pushButton_2</zorder>
-   <zorder>lineEdit_libPath</zorder>
-   <zorder>pushButton_loadLib</zorder>
-   <zorder>label_5</zorder>
-   <zorder>label_error</zorder>
-   <zorder>label_3</zorder>
-   <zorder>frame</zorder>
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>

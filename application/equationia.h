@@ -23,9 +23,11 @@ protected:
 
 public:
     EquationIA();
-    EquationIA(QString ix, void * handle, QString iFunctionName, int mit, double eps);
+    EquationIA(QString ix, void * handle, QString iFunctionName, QString mit, QString eps) throw(string);
+    EquationIA(QString ix_a, QString ix_b, void *handle, QString iFunctionName, QString mit, QString eps);
     ~EquationIA();
 
+    interval iabs(interval x);
     interval solve_ia();
 
     long double get_ix_a() {return ix.a;}

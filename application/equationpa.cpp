@@ -10,16 +10,22 @@ EquationPA::EquationPA(QString x, funct f, funct df, funct d2f, QString mit, QSt
     x(x.toDouble()), f(f), df(df), d2f(d2f) {
 
     EquationPA();
-    this->mit = mit.toInt();
-    this->eps = eps.toDouble();
+    this->mit = mit.replace(",", ".").toInt();
+    this->eps = eps.replace(",", ".").toDouble();
 
 }
 
-EquationPA::EquationPA(QString x, void *handle, QString functionName, QString mit, QString eps) : x(x.toDouble()) {
+EquationPA::EquationPA(QString x, void *handle, QString functionName, QString mit, QString eps) throw (string) {
+    if(x == "" || functionName == "" || mit == "" || eps == "") {
+        string except = "Blad danych! Sprawdz czy wypelniles wszystkie niezbedne pola.";
+        throw except;
+    }
+
+    this->x = x.replace(",", ".").toDouble();
 
     EquationPA();
-    this->mit = mit.toInt();
-    this->eps = eps.toDouble();
+    this->mit = mit.replace(",", ".").toInt();
+    this->eps = eps.replace(",", ".").toDouble();
 
     char * error;
 
@@ -28,6 +34,8 @@ EquationPA::EquationPA(QString x, void *handle, QString functionName, QString mi
 
     f = (funct)dlsym(handle, name.c_str());
     if ((error = dlerror()) != NULL)  {
+        name = "Funkcja: \"" + name + "\" nie istnieje. Podaj inna nazwe funkcji.";
+        throw name;
         fputs(error, stderr);
         exit(1);
     }

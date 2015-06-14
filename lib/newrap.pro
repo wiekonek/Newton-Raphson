@@ -11,9 +11,11 @@ TEMPLATE = lib
 
 DEFINES += NEWRAP_LIBRARY
 
-SOURCES += newrap.cpp
+SOURCES += newrap.cpp \
+    IntervalArithmetic.cpp
 
-HEADERS += newrap.h
+HEADERS += newrap.h \
+    IntervalArithmetic.h
 
 unix {
     target.path = /usr/lib
