@@ -28,6 +28,7 @@ public:
     ~EquationIA();
 
     interval iabs(interval x);
+    double mid(interval);
     interval solve_ia();
 
     long double get_ix_a() {return ix.a;}

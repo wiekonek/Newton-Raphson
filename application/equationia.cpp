@@ -98,14 +98,14 @@ EquationIA::~EquationIA() {
 }
 
 interval EquationIA::iabs(interval x) {
-    long double a = ix.a;
-    long double b = ix.b;
-    if(a >= 0 && b >=0)
-        return x;
-    else if(a <= 0&& b <= 0)
-        return IA->Opposite(x);
-    else {
-        interval ret;
+    long double a = x.a;
+    long double b = x.b;
+    interval ret;
+    if(a > 0.0 && b > 0.0) {
+        ret = x;
+    } else if(a < 0.0 && b < 0.0) {
+        ret = IA->Opposite(x);
+    } else {
         ret.a = IA->LeftRead("0.0");
         a = abs(a);
         b = abs(b);
@@ -113,14 +113,20 @@ interval EquationIA::iabs(interval x) {
             ret.b = a;
         else
             ret.b = b;
-        return ret;
     }
+    return ret;
+}
+
+double EquationIA::mid(interval x) {
+    return (x.a+x.b)/2;
 }
 
 interval EquationIA::solve_ia() {
-    interval idfatx, id2fatx, ip, iv, iw, ixh, ix1, ix2;
+    interval idfatx, id2fatx, ip, iv, iw, ixh, ix1, ix2, test01, test02;
     interval i2 = IA->IntRead("2.0");
     interval i0 = IA->IntRead("0.0");
+    test01 = i0;
+    test02 = i0;
     if(mit < 1)
         st = 1;
     else {
@@ -132,23 +138,29 @@ interval EquationIA::solve_ia() {
             idfatx = idf(ix);
             id2fatx = id2f(ix);
             ip = IA->ISub( IA->IMul(idfatx, idfatx), IA->IMul(i2, IA->IMul(ifatx, id2fatx)) );
-            if(ip.b < 0)
+            if(ip.a < 0)
                 st = 4;
             else {
                 ixh = ix;
                 iw = iabs(ixh);
+                ip.a = sqrt(ip.a);
+                ip.b = sqrt(ip.b);
                 ix1 = IA->ISub( ix,  IA->IDiv(IA->ISub(idfatx, ip), id2fatx) );
                 ix2 = IA->ISub( ix,  IA->IDiv(IA->IAdd(idfatx, ip), id2fatx) );
-                iabs(IA->ISub(ix2, ixh)).a > iabs(IA->ISub(ix1, ixh)).b ? ix = ix1 : ix = ix2;
+                test01 = iabs(IA->ISub(ix2, ixh));
+                test02 = iabs(IA->ISub(ix1, ixh));
+                mid( test01 ) > mid( test02 ) ? ix = ix1 : ix = ix2;
                 iv = iabs(ix);
                 if (iv.b < iw.a)
                     iv = iw;
                 if(iv.a <= 0 && iv.b >= 0)
-                    st =0;
-                else if ( IA->IDiv(iabs( IA->ISub(ix, ixh) ), iv ).b <= eps )
+                    st = 0;
+                //(abs(x-xh)/v <= eps)
+                //else if ( IA->IDiv(iabs( IA->ISub(ix, ixh) ), iv ).b <= eps )
+                else if (abs(ix.a-ixh.a) <= eps && abs(ix.b-ixh.b) <= eps  )
                     st = 0;
             }
-        } while( it != mit || st == 3);
+        } while( it != mit && st == 3);
     }
     if(st==0 || st==3)
         return ix;

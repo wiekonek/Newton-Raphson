@@ -58,13 +58,13 @@ void MainWindow::on_pushButton_PA_clicked() {
         eq->solve_pa();
 
         switch (eq->get_st()) {
-        case 0: ui->label_ret->setText("x = " + QString::number((double)eq->get_x(), 'f', 40) );
+        case 0: ui->label_ret->setText("x = " + QString::number((double)eq->get_x(), 'f', 20) + "\nfatx = " + QString::number((double)eq->get_fatx(), 'f', 20) );
             break;
         case 1: ui->label_error->setText("mit < 1");
             break;
         case 2: ui->label_error->setText("during the calculations the second derivative of f with respect to x at a point x is equal to zero");
             break;
-        case 3: ui->label_ret->setText("x = " + QString::number((double)eq->get_x(), 'f', 40) );
+        case 3: ui->label_ret->setText("x = " + QString::number((double)eq->get_x(), 'f', 20) + "\nfatx = " + QString::number((double)eq->get_fatx(), 'f', 20) );
             ui->label_error->setText("the given accuracy eps is not achieved in mit iteration steps");
             break;
         case 4: ui->label_error->setText("during the calculations sqr(df(x))-2*f(x)*d2f(x)<0 at a point x");
@@ -81,11 +81,11 @@ void MainWindow::on_pushButton_PA_clicked() {
 }
 
 void MainWindow::on_pushButton_IA_clicked() {
-
+    EquationIA *eq;
     ui->label_error->setText("");
     ui->label_ret->setText("x = ");
     try {
-        EquationIA *eq;
+
 
         if(ui->lineEdit_xb->text() == "")
             eq = new EquationIA(ui->lineEdit_xa->text(), handle, ui->lineEdit_functionName->text(), ui->lineEdit_it->text(), ui->lineEdit_eps->text());
@@ -96,20 +96,20 @@ void MainWindow::on_pushButton_IA_clicked() {
         eq->solve_ia();
 
         switch (eq->get_st()) {
-        case 0: ui->label_ret->setText("x = " + QString::number((double)eq->get_ix_a()) + " ; " + QString::number((double)eq->get_ix_b(), 'f', 40) );
+        case 0: ui->label_ret->setText("x = [ " + QString::number((double)eq->get_ix_a(), 'f', 20) + " ; "  + QString::number((double)eq->get_ix_b(), 'f', 20)
+                                       + " ]\nfatx = [ " + QString::number((double)eq->get_ifatx_a(), 'f', 20) + " ; " + QString::number((double)eq->get_ifatx_a(), 'f', 20) + " ]" );
             break;
         case 1: ui->label_error->setText("mit < 1");
             break;
         case 2: ui->label_error->setText("during the calculations the second derivative of f with respect to x at a point x is equal to zero");
             break;
-        case 3: ui->label_ret->setText("x = " + QString::number((double)eq->get_ix_a()) + " ; "  + QString::number((double)eq->get_ix_b(), 'f', 40) );
+        case 3: ui->label_ret->setText("x = [ " + QString::number((double)eq->get_ix_a(), 'f', 20) + " ; "  + QString::number((double)eq->get_ix_b(), 'f', 20)
+                                       + " ]\nfatx = [ " + QString::number((double)eq->get_ifatx_a(), 'f', 20) + " ; " + QString::number((double)eq->get_ifatx_a(), 'f', 20) + " ]" );
                 ui->label_error->setText("the given accuracy eps is not achieved in mit iteration steps");
             break;
         case 4: ui->label_error->setText("during the calculations sqr(df(x))-2*f(x)*d2f(x)<0 at a point x");
             break;
         }
-
-        delete eq;
 
     } catch (string except) {
         ui->label_error->setText(except.c_str());
@@ -118,6 +118,9 @@ void MainWindow::on_pushButton_IA_clicked() {
     } catch (...) {
         ui->label_error->setText("Inny blad!");
     }
+
+    if(eq)
+        delete eq;
 
 
 }

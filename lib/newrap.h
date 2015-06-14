@@ -28,9 +28,9 @@ long double f3(long double);
 long double df3(long double);
 long double d2f3(long double);
 
-interval f3(interval);
-interval df3(interval);
-interval d2f3(interval);
+interval if3(interval);
+interval dif3(interval);
+interval d2if3(interval);
 
 }
 
