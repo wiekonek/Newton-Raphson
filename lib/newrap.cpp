@@ -57,7 +57,8 @@ interval dif2(interval x) {
 
 interval d2if2(interval x) {
     int st;
-    return IA.ISub( IA.IMul(IA.IntRead("2.0"), IA.ICos(IA.IMul(IA.IntRead("2.0"), x), st)), IA.IMul(IA.IntRead("0.5"), IA.ISin(x, st)) );
+    return IA.ISub( IA.IMul(IA.IntRead("2.0"), IA.ICos(IA.IMul(IA.IntRead("2.0"), x), st)),
+                            IA.IMul(IA.IntRead("0.5"), IA.ISin(x, st)) );
 }
 
 //f3
